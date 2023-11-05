@@ -27,7 +27,7 @@ public class LoggingAspect {
 
 
 
-   /*
+
 
     @AfterReturning("execution( * tn.esprit.spring.khaddem.services.DepartementServiceImpl.retrieveDepartement(..))")
 
@@ -37,7 +37,7 @@ public class LoggingAspect {
     }
 
 
-   */
+
 
 
 
@@ -55,4 +55,3 @@ public class LoggingAspect {
     }
 
 }
-
