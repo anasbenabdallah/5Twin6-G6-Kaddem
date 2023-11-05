@@ -1,6 +1,5 @@
 package tn.esprit.spring.khaddem.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,9 +24,9 @@ public class Equipe  implements Serializable {
     @Enumerated(EnumType.STRING)
     private Niveau niveau;
 
-  //  @ManyToMany(mappedBy = "equipes",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+   // @ManyToMany(mappedBy = "equipes",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
    // @JsonIgnore
     //private List<Etudiant> etudiants;
-     /* @OneToOne(cascade = CascadeType.ALL)
-    private DetailEquipe detailEquipe;*/
+    @OneToOne(cascade = CascadeType.ALL)
+    private DetailEquipe detailEquipe;
 }
