@@ -73,17 +73,20 @@ class EquipeServiceTest {
     @Test
     void updateEquipe() {
         // Arrange
-        Equipe newEquipe = new Equipe("New Equipe", Niveau.JUNIOR);
+        Equipe existingEquipe = new Equipe("Existing Equipe", Niveau.JUNIOR);
+        Equipe updatedEquipeData = new Equipe("Updated Equipe", Niveau.SENIOR);
 
-        Mockito.when(equipeRepository.save(newEquipe)).thenReturn(newEquipe);
+        Mockito.when(equipeRepository.findById(existingEquipe.getIdEquipe())).thenReturn(Optional.of(existingEquipe));
+        Mockito.when(equipeRepository.save(existingEquipe)).thenReturn(existingEquipe);
 
         // Act
-        Equipe updatedEquipe = equipeService.updateEquipe(newEquipe);
+        Equipe updatedEquipe = equipeService.updateEquipe(updatedEquipeData);
 
         // Assert
         assertNotNull(updatedEquipe);
-        assertEquals("New Equipe", updatedEquipe.getNomEquipe());
+        assertEquals("Updated Equipe", updatedEquipe.getNomEquipe());
     }
+
 
     @Test
     void retrieveEquipe() {

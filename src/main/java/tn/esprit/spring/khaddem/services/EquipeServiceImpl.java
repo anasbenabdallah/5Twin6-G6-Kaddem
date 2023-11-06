@@ -47,7 +47,9 @@ public class EquipeServiceImpl implements IEquipeService {
             equipeRepository.save(updatedEquipe);
             return updatedEquipe;
         } else {
-            return null;
+            Equipe emptyEquipe = new Equipe();
+            emptyEquipe.setNomEquipe("Default Name");
+            return emptyEquipe;
         }
     }
 
