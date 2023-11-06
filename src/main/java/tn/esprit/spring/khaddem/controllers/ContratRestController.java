@@ -46,7 +46,7 @@ public class ContratRestController {
         Contrat c= contratService.updateContrat(cont);
         return c;
     }
-/*
+
     // http://localhost:8089/Kaddem/contrat/addAndAffectContratToEtudiant/salah/ahmed
     @PostMapping("/addAndAffectContratToEtudiant/{nomE}/{prenomE}")
     @ResponseBody
@@ -55,7 +55,7 @@ public class ContratRestController {
         return c;
     }
 
- */
+
 
     //The most common ISO Date Format yyyy-MM-dd — for example, "2000-10-31".
     @GetMapping(value = "/getnbContratsValides/{startDate}/{endDate}")
@@ -64,7 +64,7 @@ public class ContratRestController {
 
         return contratService.nbContratsValides(startDate, endDate);
     }
-/*
+
     //Only no-arg methods may be annotated with @Scheduled
     @Scheduled(cron="0 0 13 * * *")//(cron="0 0 13 * * ?")(fixedRate =21600)
   //  @Scheduled(cron="45 * * * * *")//(cron="0 0 13 * * ?")(fixedRate =21600)
@@ -72,7 +72,7 @@ public class ContratRestController {
     public void majStatusContrat (){
         contratService.retrieveAndUpdateStatusContrat();
     }
-    */
+
 
 
     //public float getChiffreAffaireEntreDeuxDate(Date startDate, Date endDate)

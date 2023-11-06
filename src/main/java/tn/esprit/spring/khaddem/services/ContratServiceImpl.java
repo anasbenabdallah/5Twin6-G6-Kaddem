@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.khaddem.entities.Contrat;
+import tn.esprit.spring.khaddem.entities.Etudiant;
 import tn.esprit.spring.khaddem.entities.Specialite;
 import tn.esprit.spring.khaddem.repositories.ContratRepository;
+import tn.esprit.spring.khaddem.repositories.EtudiantRepository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -19,9 +21,9 @@ public class ContratServiceImpl implements  IContratService{
 
 
     ContratRepository contratRepository;
-    /*
+
     EtudiantRepository etudiantRepository;
-*/
+
     @Override
     public List<Contrat> retrieveAllContrats() {
         log.info("debut methode retrieveAllContrats");
@@ -55,7 +57,7 @@ public class ContratServiceImpl implements  IContratService{
         // te =t2-t1;
         return c;
     }
-/*
+
     @Transactional
     public Contrat addAndAffectContratToEtudiant(Contrat ce, String nomE, String prenomE) {
         Long startDate = new Date().getTime();
@@ -85,11 +87,10 @@ public class ContratServiceImpl implements  IContratService{
 
         return ce;
     }
-*/
+
     public 	Integer nbContratsValides(Date startDate, Date endDate){
         return contratRepository.getnbContratsValides(startDate, endDate);
     }
-/*
     public void retrieveAndUpdateStatusContrat(){
         log.info("debut methode retrieveAndUpdateStatusContrat");
         List<Contrat>contrats=contratRepository.findAll();
@@ -123,7 +124,6 @@ public class ContratServiceImpl implements  IContratService{
             log.info("debut methode retrieveAndUpdateStatusContrat");
         }
     }
-    */
 
     public float getChiffreAffaireEntreDeuxDates(Date startDate, Date endDate){
         float difference_In_Time = endDate.getTime() - startDate.getTime();
