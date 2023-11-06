@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-import lombok.*;
 
 @Entity
 public class Contrat implements Serializable {
@@ -49,11 +48,11 @@ public class Contrat implements Serializable {
     public Integer getMontantContrat() {
         return montantContrat;
     }
-/*
+
     public Etudiant getEtudiant() {
         return etudiant;
     }
-*/
+
     public void setIdContrat(Integer idContrat) {
         this.idContrat = idContrat;
     }
@@ -77,11 +76,11 @@ public class Contrat implements Serializable {
     public void setMontantContrat(Integer montantContrat) {
         this.montantContrat = montantContrat;
     }
-/*
+
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
-*/
+
     public Contrat() {
     }
 

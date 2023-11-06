@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.khaddem.entities.*;
+import tn.esprit.spring.khaddem.repositories.ContratRepository;
+import tn.esprit.spring.khaddem.repositories.DepartementRepository;
+import tn.esprit.spring.khaddem.repositories.EquipeRepository;
 import tn.esprit.spring.khaddem.repositories.EtudiantRepository;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -17,13 +19,13 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     EtudiantRepository etudiantRepository;
 
-    /*DepartementRepository departementRepository;
+    DepartementRepository departementRepository;
 
     ContratRepository contratRepository;
 
     EquipeRepository equipeRepository;
 
-     */
+
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
         return etudiantRepository.findAll();
@@ -43,7 +45,13 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     @Override
     public Etudiant retrieveEtudiant(Integer idEtudiant) {
-        return etudiantRepository.findById(idEtudiant).get();
+        Optional<Etudiant> etudiantOptional = etudiantRepository.findById(idEtudiant);
+
+        if (etudiantOptional.isPresent()) {
+            return etudiantOptional.get();
+        } else {
+            return null;
+        }
     }
 
     @Override
