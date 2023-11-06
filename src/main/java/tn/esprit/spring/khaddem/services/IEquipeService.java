@@ -14,6 +14,6 @@ public interface IEquipeService {
 
     Equipe retrieveEquipe (Integer idEquipe);
 
-  //  public void evoluerEquipes();
+    public void evoluerEquipes();
 
 }

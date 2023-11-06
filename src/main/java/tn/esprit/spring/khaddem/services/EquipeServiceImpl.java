@@ -3,8 +3,11 @@ package tn.esprit.spring.khaddem.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import tn.esprit.spring.khaddem.entities.Contrat;
 import tn.esprit.spring.khaddem.entities.Equipe;
+import tn.esprit.spring.khaddem.entities.Etudiant;
 import tn.esprit.spring.khaddem.entities.Niveau;
+import tn.esprit.spring.khaddem.repositories.ContratRepository;
 import tn.esprit.spring.khaddem.repositories.EquipeRepository;
 
 import javax.transaction.Transactional;
@@ -18,7 +21,7 @@ public class EquipeServiceImpl implements IEquipeService{
 
     EquipeRepository equipeRepository;
 
-    //ContratRepository contratRepository;
+    ContratRepository contratRepository;
 
     @Override
     public List<Equipe> retrieveAllEquipes() {
@@ -43,7 +46,7 @@ public class EquipeServiceImpl implements IEquipeService{
         return   equipeRepository.findById(idEquipe).get();
     }
 
-   /* public void evoluerEquipes(){
+   public void evoluerEquipes(){
         log.info("debut methode evoluerEquipes");
         // t1 : recuperer date a linstant t1
         List<Equipe> equipes = (List<Equipe>) equipeRepository.findAll();
@@ -101,5 +104,5 @@ public class EquipeServiceImpl implements IEquipeService{
         log.info("fin methode evoluerEquipes");
         // t2 : recuperer date a linstant t2 : te=t2-t1
     }
-*/
+
 }
