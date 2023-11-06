@@ -9,6 +9,7 @@ import tn.esprit.spring.khaddem.repositories.DepartementRepository;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -48,13 +49,17 @@ public class UniversiteServiceImpl implements  IUniversiteService{
     }
 
 
-   @Transactional
+    @Transactional
     public void assignUniversiteToDepartement(Integer universiteId, Integer departementId) {
-        Universite universite =universiteRepository.findById(universiteId).get();
-        Departement departement=departementRepository.findById(departementId).get();
+        Universite universite = universiteRepository.findById(universiteId)
+                .orElseThrow(() -> new NoSuchElementException("Universite not found with ID: " + universiteId));
+        Departement departement = departementRepository.findById(departementId)
+                .orElseThrow(() -> new NoSuchElementException("Departement not found with ID: " + departementId));
+
         universite.getDepartements().add(departement);
-        log.info("departements number "+universite.getDepartements().size());
+        log.info("departements number " + universite.getDepartements().size());
     }
+
 
 
 }

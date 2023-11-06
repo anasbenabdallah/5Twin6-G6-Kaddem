@@ -7,19 +7,22 @@ import tn.esprit.spring.khaddem.entities.Universite;
 import tn.esprit.spring.khaddem.repositories.DepartementRepository;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DepartementServiceImpl implements IDepartementService{
+public class DepartementServiceImpl implements IDepartementService {
     private final DepartementRepository departementRepository;
 
     @Autowired
     public DepartementServiceImpl(DepartementRepository departementRepository) {
         this.departementRepository = departementRepository;
     }
+
     @Autowired
     UniversiteRepository universiteRepository;
+
     @Override
     public List<Departement> retrieveAllDepartements() {
         return departementRepository.findAll();
@@ -48,9 +51,15 @@ public class DepartementServiceImpl implements IDepartementService{
         }
     }
 
-   @Override
+    @Override
     public List<Departement> retrieveDepartementsByUniversite(Integer idUniversite) {
-        Universite universite = universiteRepository.findById(idUniversite).get();
-        return universite.getDepartements();
+        Optional<Universite> universiteOptional = universiteRepository.findById(idUniversite);
+
+        if (universiteOptional.isPresent()) {
+            Universite universite = universiteOptional.get();
+            return universite.getDepartements();
+        } else {
+            return Collections.emptyList();
+        }
     }
 }
