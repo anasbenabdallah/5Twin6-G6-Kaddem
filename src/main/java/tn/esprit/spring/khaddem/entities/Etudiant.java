@@ -130,10 +130,10 @@ public class Etudiant  implements Serializable {
     public void setContrats(List<Contrat> contrats) {
         this.contrats = contrats;
     }
-/*
+
             @ManyToOne
             @JsonIgnore
-            private Departement departement;*/
+            private Departement departement;
     @ManyToMany
     @JsonIgnore
     private List<Equipe> equipes;
