@@ -1,18 +1,17 @@
 package tn.esprit.spring.khaddem.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.spring.khaddem.entities.Etudiant;
+import tn.esprit.spring.khaddem.entities.Niveau;
 
 import java.util.List;
 
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant, Integer> {
 
-    //public List<Etudiant> findByDepartementIdDepartement(Long idDepartement);
-    //public List<Etudiant> findByEquipesNiveau(Niveau nv);
+    public List<Etudiant> findByDepartementIdDepartement(Long idDepartement);
+    public List<Etudiant> findByEquipesNiveau(Niveau nv);
 
 
 

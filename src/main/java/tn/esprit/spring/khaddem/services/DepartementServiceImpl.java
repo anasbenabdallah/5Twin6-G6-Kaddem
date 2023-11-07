@@ -14,14 +14,13 @@ import java.util.Optional;
 @Service
 public class DepartementServiceImpl implements IDepartementService {
     private final DepartementRepository departementRepository;
+    private final UniversiteRepository universiteRepository;
 
     @Autowired
-    public DepartementServiceImpl(DepartementRepository departementRepository) {
+    public DepartementServiceImpl(DepartementRepository departementRepository, UniversiteRepository universiteRepository) {
         this.departementRepository = departementRepository;
+        this.universiteRepository = universiteRepository;
     }
-
-    @Autowired
-    UniversiteRepository universiteRepository;
 
     @Override
     public List<Departement> retrieveAllDepartements() {
@@ -36,9 +35,19 @@ public class DepartementServiceImpl implements IDepartementService {
 
     @Override
     public Departement updateDepartement(Departement d) {
-        departementRepository.save(d);
-        return d;
+        Optional<Departement> existingDepartement = departementRepository.findById(d.getIdDepartement());
+
+        if (existingDepartement.isPresent()) {
+            Departement updatedDepartement = existingDepartement.get();
+            updatedDepartement.setNomDepart(d.getNomDepart());
+
+            departementRepository.save(updatedDepartement);
+            return updatedDepartement;
+        } else {
+            return null;
+        }
     }
+
 
     @Override
     public Departement retrieveDepartement(Integer idDepart) {

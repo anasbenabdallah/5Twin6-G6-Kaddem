@@ -15,10 +15,14 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class UniversiteServiceImpl implements  IUniversiteService{
+    private final UniversiteRepository universiteRepository;
+    private final DepartementRepository departementRepository;
+
     @Autowired
-    UniversiteRepository universiteRepository;
-   @Autowired
-   DepartementRepository departementRepository;
+    public UniversiteServiceImpl(UniversiteRepository universiteRepository, DepartementRepository departementRepository) {
+        this.universiteRepository = universiteRepository;
+        this.departementRepository = departementRepository;
+    }
     @Override
     public List<Universite> retrieveAllUniversites() {
         return universiteRepository.findAll();

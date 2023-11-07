@@ -2,10 +2,7 @@ package tn.esprit.spring.khaddem.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -106,23 +103,23 @@ public class Etudiant  implements Serializable {
         this.op = op;
     }
 
-    /*public Departement getDepartement() {
+    public Departement getDepartement() {
         return departement;
     }
-     */
 
-   /* public void setDepartement(Departement departement) {
+
+    public void setDepartement(Departement departement) {
         this.departement = departement;
     }
-*/
-  /*  public List<Equipe> getEquipes() {
+
+    public List<Equipe> getEquipes() {
         return equipes;
     }
-*/
-  /*  public void setEquipes(List<Equipe> equipes) {
+
+    public void setEquipes(List<Equipe> equipes) {
         this.equipes = equipes;
     }
-*/
+
     public List<Contrat> getContrats() {
         return contrats;
     }

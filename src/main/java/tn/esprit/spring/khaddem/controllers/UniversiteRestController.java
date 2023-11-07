@@ -14,19 +14,21 @@ import java.util.List;
 @RequestMapping("/universite")
 
 public class UniversiteRestController {
-    @Autowired
-    IUniversiteService universiteService;
+    private final IUniversiteService universiteService;
 
-    // http://localhost:8089/Kaddem/universite/retrieve-all-universites
+    @Autowired
+    public UniversiteRestController(IUniversiteService universiteService) {
+        this.universiteService = universiteService;
+    }
+
     @GetMapping("/retrieve-all-universites")
     @Operation(description = "récupérer la liste des universités")
     @ResponseBody
     public List<Universite> getUniversites() {
-        List<Universite> listUniversites = universiteService.retrieveAllUniversites();
-        return listUniversites;
+        return universiteService.retrieveAllUniversites();
     }
 
-    // http://localhost:8089/Kaddem/universite/retrieve-universite/8
+
     @GetMapping("/retrieve-universite/{universite-id}")
     @Operation(description = "récupérer une université par son id")
     @ResponseBody
@@ -34,25 +36,22 @@ public class UniversiteRestController {
         return universiteService.retrieveUniversite(universiteId);
     }
 
-    // http://localhost:8089/Kaddem/universite/add-universite
     @PostMapping("/add-universite")
     @Operation(description = "ajouter une université")
     @ResponseBody
     public Universite addUniversite(@RequestBody Universite u) {
-        Universite universite = universiteService.addUniversite(u);
-        return universite;
+        return universiteService.addUniversite(u);
     }
 
-    // http://localhost:8089/Kaddem/universite/update-universite
+
     @PutMapping("/update-universite")
     @Operation(description = "modifier une université")
     @ResponseBody
     public Universite updateUniversite(@RequestBody Universite u) {
-        Universite universite= universiteService.updateUniversite(u);
-        return universite;
+        return universiteService.updateUniversite(u);
     }
 
-    // http://localhost:8089/Kaddem/universite/assignUniversiteToDepartement/1/1
+
   /*  @PutMapping("/assignUniversiteToDepartement/{universiteId}/{departementId}")
     @Operation(description = "assigner une université à un département")
     @ResponseBody

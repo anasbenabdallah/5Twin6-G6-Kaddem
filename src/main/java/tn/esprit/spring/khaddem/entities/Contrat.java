@@ -24,11 +24,11 @@ public class Contrat implements Serializable {
     @ManyToOne
    // @JsonIgnore
     private  Etudiant etudiant;
-/*
+
     public Integer getIdContrat() {
         return idContrat;
     }
-*/
+
     public Date getDateDebutContrat() {
         return dateDebutContrat;
     }
@@ -105,9 +105,9 @@ public class Contrat implements Serializable {
         this.specialite = specialite;
         this.archived = archived;
         this.montantContrat = montantContrat;
-        /*
+
         this.etudiant = etudiant;
 
-         */
+
     }
 }

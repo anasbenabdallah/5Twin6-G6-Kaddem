@@ -11,24 +11,25 @@ import java.util.List;
 @RequestMapping("/departement")
 
 public class DepartementRestController {
+    private final IDepartementService departementService;
+
     @Autowired
-    IDepartementService departementService;
-    // http://localhost:8089/Kaddem/departement/retrieve-all-departements
+    public DepartementRestController(IDepartementService departementService) {
+        this.departementService = departementService;
+    }
     @GetMapping("/retrieve-all-departements")
     @ResponseBody
     public List<Departement> getDepartements() {
-        List<Departement> listDepartements = departementService.retrieveAllDepartements();
-        return listDepartements;
+        return departementService.retrieveAllDepartements();
     }
 
-    // http://localhost:8089/Kaddem/departement/retrieve-departement/8
+
     @GetMapping("/retrieve-departement/{departement-id}")
     @ResponseBody
     public Departement retrieveDepartement(@PathVariable("departement-id") Integer departementId) {
         return departementService.retrieveDepartement(departementId);
     }
 
-    // http://localhost:8089/Kaddem/departement/add-departement
     @PostMapping("/add-departement")
     @ResponseBody
     public Departement addDepartement(@RequestBody Departement d) {
@@ -36,22 +37,19 @@ public class DepartementRestController {
         return d;
     }
 
-    // http://localhost:8089/Kaddem/departement/update-departement
     @PutMapping("/update-departement")
     @ResponseBody
     public Departement updateDepartement(@RequestBody Departement departement) {
-        Departement d= departementService.updateDepartement(departement);
-        return d;
+        return departementService.updateDepartement(departement);
     }
 
 
 
-    // http://localhost:8089/Kaddem/departement/retrieveDepartementsByUniversite/1
+
     @GetMapping("/retrieveDepartementsByUniversite/{idUniversite}")
     @ResponseBody
     public List<Departement> retrieveDepartementsByUniversite(@PathVariable("idUniversite") Integer idUniversite) {
-        List<Departement> listDepartements = departementService.retrieveDepartementsByUniversite(idUniversite);
-        return listDepartements;
+        return departementService.retrieveDepartementsByUniversite(idUniversite);
     }
 
 
