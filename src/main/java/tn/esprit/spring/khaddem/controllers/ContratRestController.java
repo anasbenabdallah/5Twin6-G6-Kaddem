@@ -1,14 +1,16 @@
 package tn.esprit.spring.khaddem.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.khaddem.dto.ContratDTO;
 import tn.esprit.spring.khaddem.entities.Contrat;
 import tn.esprit.spring.khaddem.services.IContratService;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -21,40 +23,97 @@ public class ContratRestController {
     // http://localhost:8089/Kaddem/contrat/retrieve-all-contrats
     @GetMapping("/retrieve-all-contrats")
     @ResponseBody
-    public List<Contrat> getContrats() {
+    public List<ContratDTO> getContrats() {
         List<Contrat> listContrats = contratService.retrieveAllContrats();
-        return listContrats;
+        return listContrats.stream()
+                .map(contrat -> new ContratDTO(
+                        contrat.getIdContrat(),
+                        contrat.getDateDebutContrat(),
+                        contrat.getDateFinContrat(),
+                        contrat.getSpecialite(),
+                        contrat.getArchived(),
+                        contrat.getMontantContrat()
+                ))
+                .collect(Collectors.toList());
     }
 
-    // http://localhost:8089/Kaddem/contrat/retrieve-contrat/8
     @GetMapping("/retrieve-contrat/{contrat-id}")
     @ResponseBody
-    public Contrat retrieveContrat(@PathVariable("contrat-id") Integer contratId) {
-        return contratService.retrieveContrat(contratId);
+    public ContratDTO retrieveContrat(@PathVariable("contrat-id") Integer contratId) {
+        Contrat contrat = contratService.retrieveContrat(contratId);
+        return new ContratDTO(
+                contrat.getIdContrat(),
+                contrat.getDateDebutContrat(),
+                contrat.getDateFinContrat(),
+                contrat.getSpecialite(),
+                contrat.getArchived(),
+                contrat.getMontantContrat()
+        );
     }
 
-    // http://localhost:8089/Kaddem/contrat/add-contrat
     @PostMapping("/add-contrat")
     @ResponseBody
-    public Contrat addContrat(@RequestBody Contrat c) {
-        Contrat contrat = contratService.addContrat(c);
-        return contrat;
+    public ContratDTO addContrat(@RequestBody ContratDTO c) {
+        Contrat contrat = new Contrat(
+                c.getIdContrat(),
+                c.getDateDebutContrat(),
+                c.getDateFinContrat(),
+                c.getSpecialite(),
+                c.getArchived(),
+                c.getMontantContrat()
+        );
+        contrat = contratService.addContrat(contrat);
+        return new ContratDTO(
+                contrat.getIdContrat(),
+                contrat.getDateDebutContrat(),
+                contrat.getDateFinContrat(),
+                contrat.getSpecialite(),
+                contrat.getArchived(),
+                contrat.getMontantContrat()
+        );
     }
-
-    // http://localhost:8089/Kaddem/contrat/update-contrat
     @PutMapping("/update-contrat")
     @ResponseBody
-    public Contrat updateEtudiant(@RequestBody Contrat cont) {
-        Contrat c= contratService.updateContrat(cont);
-        return c;
+    public ContratDTO updateContrat(@RequestBody ContratDTO cont) {
+        Contrat contrat = new Contrat(
+                cont.getIdContrat(),
+                cont.getDateDebutContrat(),
+                cont.getDateFinContrat(),
+                cont.getSpecialite(),
+                cont.getArchived(),
+                cont.getMontantContrat()
+        );
+        contrat = contratService.updateContrat(contrat);
+        return new ContratDTO(
+                contrat.getIdContrat(),
+                contrat.getDateDebutContrat(),
+                contrat.getDateFinContrat(),
+                contrat.getSpecialite(),
+                contrat.getArchived(),
+                contrat.getMontantContrat()
+        );
     }
 
-    // http://localhost:8089/Kaddem/contrat/addAndAffectContratToEtudiant/salah/ahmed
     @PostMapping("/addAndAffectContratToEtudiant/{nomE}/{prenomE}")
     @ResponseBody
-    public Contrat addAndAffectContratToEtudiant(@RequestBody Contrat contrat,@PathVariable("nomE") String nomE,@PathVariable("prenomE") String prenomE) {
-        Contrat c= contratService.addAndAffectContratToEtudiant(contrat,nomE,prenomE);
-        return c;
+    public ContratDTO addAndAffectContratToEtudiant(@RequestBody ContratDTO contrat, @PathVariable("nomE") String nomE, @PathVariable("prenomE") String prenomE) {
+        Contrat contratEntity = new Contrat(
+                contrat.getIdContrat(),
+                contrat.getDateDebutContrat(),
+                contrat.getDateFinContrat(),
+                contrat.getSpecialite(),
+                contrat.getArchived(),
+                contrat.getMontantContrat()
+        );
+        contratEntity = contratService.addAndAffectContratToEtudiant(contratEntity, nomE, prenomE);
+        return new ContratDTO(
+                contratEntity.getIdContrat(),
+                contratEntity.getDateDebutContrat(),
+                contratEntity.getDateFinContrat(),
+                contratEntity.getSpecialite(),
+                contratEntity.getArchived(),
+                contratEntity.getMontantContrat()
+        );
     }
 
 
@@ -69,7 +128,7 @@ public class ContratRestController {
 
     //Only no-arg methods may be annotated with @Scheduled
     @Scheduled(cron="0 0 13 * * *")//(cron="0 0 13 * * ?")(fixedRate =21600)
-  //  @Scheduled(cron="45 * * * * *")//(cron="0 0 13 * * ?")(fixedRate =21600)
+    //  @Scheduled(cron="45 * * * * *")//(cron="0 0 13 * * ?")(fixedRate =21600)
     @PutMapping(value = "/majStatusContrat")
     public void majStatusContrat (){
         contratService.retrieveAndUpdateStatusContrat();

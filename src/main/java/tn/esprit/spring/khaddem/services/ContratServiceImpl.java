@@ -50,12 +50,9 @@ public class ContratServiceImpl implements  IContratService{
     }
 
     @Override
-    public Contrat addContrat(Contrat c) {
-       // start date t1
-        contratRepository.save(c);
-
-        // te =t2-t1;
-        return c;
+    public Contrat addContrat(Contrat contrat) {
+        contratRepository.save(contrat);
+        return contrat;
     }
 
     @Transactional
@@ -91,80 +88,70 @@ public class ContratServiceImpl implements  IContratService{
     public 	Integer nbContratsValides(Date startDate, Date endDate){
         return contratRepository.getnbContratsValides(startDate, endDate);
     }
-    public void retrieveAndUpdateStatusContrat(){
+    public void retrieveAndUpdateStatusContrat() {
         log.info("debut methode retrieveAndUpdateStatusContrat");
-        List<Contrat>contrats=contratRepository.findAll();
-        log.info("total contrats :"+contrats.size());
+        List<Contrat> contrats = contratRepository.findAll();
+        log.info("total contrats :" + contrats.size());
 
         for (Contrat contrat : contrats) {
-            log.info("id: "+contrat.getIdContrat());
-            log.info("date fin"+contrat.getDateFinContrat());
-            log.info("archived "+contrat.getArchived());
+            log.info("id: " + contrat.getIdContrat());
+            log.info("date fin" + contrat.getDateFinContrat());
+            log.info("archived " + contrat.getArchived());
 
             Date dateSysteme = new Date();
 
-            if (contrat.getArchived()==null || contrat.getArchived()==false) {
-                long difference_In_Time = contrat.getDateFinContrat().getTime()-dateSysteme.getTime();
-                long difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
-                // il est préférable d'utiliser des méthodes prédéfinis de comparaison
-               log.info("difference in days : "+difference_In_Days);
-             //     if (difference_In_Days>=0 && difference_In_Days<=15){  // entre 0 et  15 jours exactement
-                    if (difference_In_Days==15){  // pour 15 jours exactement
-                    log.info(" Contrat Commencant le : " + contrat.getDateDebutContrat()+"pour l'etudiant "+contrat.getEtudiant().getNomE()+
-                            " "+contrat.getEtudiant().getPrenomE()+"  va bientot s achever le "
-                    +contrat.getDateFinContrat());
+            if (contrat.getArchived() == null || !contrat.getArchived()) {
+                long differenceInTime = contrat.getDateFinContrat().getTime() - dateSysteme.getTime();
+                long differenceInDays = (differenceInTime / (1000 * 60 * 60 * 24)) % 365;
+                log.info("difference in days : " + differenceInDays);
+                if (differenceInDays == 15) {
+                    log.info("Contrat Commencant le : " + contrat.getDateDebutContrat() + "pour l'etudiant " + contrat.getEtudiant().getNomE() +
+                            " " + contrat.getEtudiant().getPrenomE() + " va bientot s achever le "
+                            + contrat.getDateFinContrat());
                 }
-                if (difference_In_Days==0) {
+                if (differenceInDays == 0) {
                     log.info("jour j: " + contrat.getIdContrat());
                     contrat.setArchived(true);
                     contratRepository.save(contrat);
                 }
             }
-
-            log.info("debut methode retrieveAndUpdateStatusContrat");
         }
     }
 
-    public float getChiffreAffaireEntreDeuxDates(Date startDate, Date endDate){
-        float difference_In_Time = endDate.getTime() - startDate.getTime();
-        float difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
-        float difference_In_months =difference_In_Days/30;
-        List<Contrat> contrats=contratRepository.findAll();
-        float chiffreAffaireEntreDeuxDates=0;
-        float chiffreAffaireEntreDeuxDatesIA=0;
-        float chiffreAffaireEntreDeuxDatesCloud=0;
-        float chiffreAffaireEntreDeuxDatesReseau=0;
-        float chiffreAffaireEntreDeuxDatesSecurite=0;
+
+    public float getChiffreAffaireEntreDeuxDates(Date startDate, Date endDate) {
+        float differenceInTime = (endDate.getTime() - startDate.getTime());
+        float differenceInDays = (differenceInTime / (1000f * 60 * 60 * 24)) % 365;
+        float differenceInMonths = differenceInDays / 30;
+        List<Contrat> contrats = contratRepository.findAll();
+        float totalChiffreAffaire = 0;
+        float chiffreAffaireIA = 0;
+        float chiffreAffaireCloud = 0;
+        float chiffreAffaireReseau = 0;
+        float chiffreAffaireSecurite = 0;
 
         for (Contrat contrat : contrats) {
-            if (contrat.getSpecialite()== Specialite.IA){
-                chiffreAffaireEntreDeuxDates+=(difference_In_months*contrat.getMontantContrat());
-                chiffreAffaireEntreDeuxDatesIA+=(difference_In_months*contrat.getMontantContrat());
-
-            } else if (contrat.getSpecialite()== Specialite.CLOUD) {
-                chiffreAffaireEntreDeuxDates+=(difference_In_months*contrat.getMontantContrat());
-                chiffreAffaireEntreDeuxDatesCloud+=(difference_In_months*contrat.getMontantContrat());
-            }
-            else if (contrat.getSpecialite()== Specialite.RESEAU) {
-                chiffreAffaireEntreDeuxDates+=(difference_In_months*contrat.getMontantContrat());
-                chiffreAffaireEntreDeuxDatesReseau+=(difference_In_months*contrat.getMontantContrat());
-
-            }
-            else if (contrat.getSpecialite()== Specialite.SECURITE)
-            {
-                chiffreAffaireEntreDeuxDates+=(difference_In_months*contrat.getMontantContrat());
-                chiffreAffaireEntreDeuxDatesSecurite+=(difference_In_months*contrat.getMontantContrat());
-
+            if (contrat.getSpecialite() == Specialite.IA) {
+                totalChiffreAffaire += (differenceInMonths * contrat.getMontantContrat());
+                chiffreAffaireIA += (differenceInMonths * contrat.getMontantContrat());
+            } else if (contrat.getSpecialite() == Specialite.CLOUD) {
+                totalChiffreAffaire += (differenceInMonths * contrat.getMontantContrat());
+                chiffreAffaireCloud += (differenceInMonths * contrat.getMontantContrat());
+            } else if (contrat.getSpecialite() == Specialite.RESEAU) {
+                totalChiffreAffaire += (differenceInMonths * contrat.getMontantContrat());
+                chiffreAffaireReseau += (differenceInMonths * contrat.getMontantContrat());
+            } else if (contrat.getSpecialite() == Specialite.SECURITE) {
+                totalChiffreAffaire += (differenceInMonths * contrat.getMontantContrat());
+                chiffreAffaireSecurite += (differenceInMonths * contrat.getMontantContrat());
             }
         }
-        log.info("chiffreAffaireEntreDeuxDates: "+chiffreAffaireEntreDeuxDates);
-        log.info("chiffreAffaireEntreDeuxDatesIA:" +chiffreAffaireEntreDeuxDatesIA);
-        log.info("chiffreAffaireEntreDeuxDatesCloud "+chiffreAffaireEntreDeuxDatesCloud);
-        log.info("chiffreAffaireEntreDeuxDatesReseau "+chiffreAffaireEntreDeuxDatesReseau);
-        log.info("chiffreAffaireEntreDeuxDatesSecurite "+chiffreAffaireEntreDeuxDatesSecurite);
-        return chiffreAffaireEntreDeuxDates;
 
+        log.info("Total Chiffre d'Affaire Entre Deux Dates: {}", totalChiffreAffaire);
+        log.info("Chiffre d'Affaire IA: {}", chiffreAffaireIA);
+        log.info("Chiffre d'Affaire Cloud: {}", chiffreAffaireCloud);
+        log.info("Chiffre d'Affaire Reseau: {}", chiffreAffaireReseau);
+        log.info("Chiffre d'Affaire Securite: {}", chiffreAffaireSecurite);
 
+        return totalChiffreAffaire;
     }
-
 }
