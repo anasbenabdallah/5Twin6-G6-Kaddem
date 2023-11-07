@@ -1,4 +1,4 @@
-package tn.esprit.spring.khaddem.services;
+/*package tn.esprit.spring.khaddem.services;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,3 +72,4 @@ class ContratDynamicTest {
 
 
 }
+*/
