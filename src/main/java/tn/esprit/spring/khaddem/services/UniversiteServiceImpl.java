@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 //import tn.esprit.spring.khaddem.entities.Departement;
 import tn.esprit.spring.khaddem.entities.Universite;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -48,4 +48,12 @@ public class UniversiteServiceImpl implements  IUniversiteService{
     }
 
     */
+
+    @Override
+    public void deleteUniversite(Integer idUniversite) {
+        Universite universite = universiteRepository.findById(idUniversite).orElse(null);
+        if (universite != null) {
+            universiteRepository.delete(universite);
+        }
+    }
 }

@@ -13,6 +13,8 @@ public interface IUniversiteService {
 
     Universite retrieveUniversite (Integer idUniversite);
 
+    void deleteUniversite(Integer idUniversite);
+
 
     //public void assignUniversiteToDepartement(Integer universiteId, Integer departementId) ;
 
