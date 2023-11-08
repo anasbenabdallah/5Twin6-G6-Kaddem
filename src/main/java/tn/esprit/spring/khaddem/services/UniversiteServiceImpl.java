@@ -48,4 +48,13 @@ public class UniversiteServiceImpl implements  IUniversiteService{
     }
 
     */
+
+    @Override
+    public void deleteUniversite(Integer idUniversite) {
+        Universite universite = universiteRepository.findById(idUniversite).orElse(null);
+        if (universite != null) {
+            universiteRepository.delete(universite);
+        }
+    }
+
 }

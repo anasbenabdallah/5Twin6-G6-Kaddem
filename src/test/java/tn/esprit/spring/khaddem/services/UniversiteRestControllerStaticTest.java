@@ -11,6 +11,7 @@ import tn.esprit.spring.khaddem.entities.Universite;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -87,5 +88,23 @@ public class UniversiteRestControllerStaticTest {
 
         System.err.println("testRetrieveUniversite : SUCCESS");
     }
+
+
+
+    @Test
+    void testDeleteUniversite() {
+        Universite universite = new Universite();
+        universite.setIdUniversite(1);
+
+        when(universiteRepository.save(universite)).thenReturn(universite);
+        universiteService.deleteUniversite(universite.getIdUniversite());
+        List<Universite> result = universiteService.retrieveAllUniversites();
+        assertEquals(0, result.size());
+
+        System.err.println("testDeleteUniversite : SUCCESS");
+    }
+
+
+
 
 }

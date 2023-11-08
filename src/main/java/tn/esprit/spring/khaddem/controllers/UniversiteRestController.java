@@ -61,4 +61,14 @@ public class UniversiteRestController {
     }
     
    */
+
+    // http://localhost:8089/Kaddem/universite/delete-universite/8
+    @DeleteMapping("/delete-universite/{universite-id}")
+    @Operation(description = "supprimer une université par son id")
+    @ResponseBody
+    public void deleteUniversite(@PathVariable("universite-id") Integer universiteId) {
+        universiteService.deleteUniversite(universiteId);
+    }
+
+
 }
