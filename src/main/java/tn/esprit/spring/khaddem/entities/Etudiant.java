@@ -17,7 +17,11 @@ public class Etudiant  implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    //id
     private Integer idEtudiant;
+
+    //prenom
     private String prenomE;
     private String nomE;
     @Enumerated(EnumType.STRING)
