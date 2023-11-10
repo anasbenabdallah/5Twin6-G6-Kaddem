@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.khaddem.entities.*;
-import tn.esprit.spring.khaddem.repositories.ContratRepository;
-import tn.esprit.spring.khaddem.repositories.DepartementRepository;
-import tn.esprit.spring.khaddem.repositories.EquipeRepository;
 import tn.esprit.spring.khaddem.repositories.EtudiantRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -21,13 +17,13 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     EtudiantRepository etudiantRepository;
 
-    DepartementRepository departementRepository;
+    /*DepartementRepository departementRepository;
 
     ContratRepository contratRepository;
 
     EquipeRepository equipeRepository;
 
-
+     */
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
         return etudiantRepository.findAll();
@@ -47,38 +43,32 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     @Override
     public Etudiant retrieveEtudiant(Integer idEtudiant) {
-        Optional<Etudiant> etudiantOptional = etudiantRepository.findById(idEtudiant);
-
-        if (etudiantOptional.isPresent()) {
-            return etudiantOptional.get();
-        } else {
-            return null;
-        }
+        return etudiantRepository.findById(idEtudiant).get();
     }
 
     @Override
     public void removeEtudiant(Integer idEtudiant) {
-     etudiantRepository.deleteById(idEtudiant);
+        etudiantRepository.deleteById(idEtudiant);
     }
 
-     @Override
+    /*  @Override
     public void assignEtudiantToDepartement(Integer etudiantId, Integer departementId) {
         Etudiant e = etudiantRepository.findById(etudiantId).get();
         Departement d= departementRepository.findById(departementId).get();
         e.setDepartement(d);
         etudiantRepository.save(e);
     }
-/*
+
     @Override
     public List<Etudiant> findByDepartementIdDepartement(Integer idDepartement) {
         return etudiantRepository.findByDepartementIdDepartement(idDepartement);
     }
-*/
+
     @Override
     public List<Etudiant> findByEquipesNiveau(Niveau niveau) {
         return etudiantRepository.findByEquipesNiveau(niveau);
     }
-/*
+
     @Override
     public List<Etudiant> retrieveEtudiantsByContratSpecialite(Specialite specialite) {
         return etudiantRepository.retrieveEtudiantsByContratSpecialite(specialite);
@@ -88,7 +78,7 @@ public class EtudiantServiceImpl implements IEtudiantService{
     public List<Etudiant> retrieveEtudiantsByContratSpecialiteSQL(String specialite) {
         return etudiantRepository.retrieveEtudiantsByContratSpecialiteSQL(specialite);
     }
-*/
+
     @Transactional
     public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer idEquipe) {
         Contrat contrat = contratRepository.findById(idContrat).get();
@@ -115,7 +105,7 @@ public class EtudiantServiceImpl implements IEtudiantService{
         Departement departement=departementRepository.findById(idDepartement).get();
         return departement.getEtudiants();
     }
-
+     */
 
 
 }

@@ -13,7 +13,7 @@ public class Etudiant  implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEtudiant;
     private String prenomE;
     private String nomE;
@@ -128,9 +128,9 @@ public class Etudiant  implements Serializable {
         this.contrats = contrats;
     }
 
-            @ManyToOne
-            @JsonIgnore
-            private Departement departement;
+    @ManyToOne
+    @JsonIgnore
+    private Departement departement;
     @ManyToMany
     @JsonIgnore
     private List<Equipe> equipes;

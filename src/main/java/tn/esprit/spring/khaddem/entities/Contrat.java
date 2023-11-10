@@ -22,7 +22,7 @@ public class Contrat implements Serializable {
     private Integer montantContrat;
 
     @ManyToOne
-   // @JsonIgnore
+    // @JsonIgnore
     private  Etudiant etudiant;
 
     public Integer getIdContrat() {
