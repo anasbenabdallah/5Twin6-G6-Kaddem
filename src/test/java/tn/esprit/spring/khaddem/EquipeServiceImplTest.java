@@ -1,10 +1,8 @@
 package tn.esprit.spring.khaddem;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,20 +16,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.spring.khaddem.entities.Equipe;
+import tn.esprit.spring.khaddem.entities.Etudiant;
 import tn.esprit.spring.khaddem.entities.Niveau;
+import tn.esprit.spring.khaddem.repositories.ContratRepository;
 import tn.esprit.spring.khaddem.repositories.EquipeRepository;
 import tn.esprit.spring.khaddem.services.EquipeServiceImpl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
+
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
 class EquipeServiceTest {
     @Mock
     EquipeRepository equipeRepository;
+    @Mock
+    ContratRepository contratRepository;
     @InjectMocks
     EquipeServiceImpl equipeService;
     Equipe equipe1 = new Equipe(1, "Equipe 1", Niveau.JUNIOR);
@@ -103,7 +104,39 @@ class EquipeServiceTest {
         assertNotNull(retrievedEquipe);
         assertEquals("New Equipe 5", retrievedEquipe.getNomEquipe());
     }
+    @Test
+    void testRetrieveAllEquipesWhenEmpty() {
+        // Arrange
+        Mockito.when(equipeRepository.findAll()).thenReturn(Collections.emptyList());
 
+        // Act
+        List<Equipe> retrievedEquipes = equipeService.retrieveAllEquipes();
+
+        // Assert
+        assertTrue(retrievedEquipes.isEmpty());
+    }
+    @Test
+    void testAddEquipeWithNull() {
+        // Arrange
+        Mockito.when(equipeRepository.save(null)).thenThrow(IllegalArgumentException.class);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> equipeService.addEquipe(null));
+    }
+
+    @Test
+    void retrieveEquipeWhenNotFound() {
+        // Arrange
+        int EquipetId = 5;
+
+        Mockito.when(equipeRepository.findById(EquipetId)).thenReturn(Optional.empty());
+
+        // Act
+        Equipe retrievedEquipe = equipeService.retrieveEquipe(EquipetId);
+
+        // Assert
+        assertNull(retrievedEquipe);
+    }
 
 
 }
