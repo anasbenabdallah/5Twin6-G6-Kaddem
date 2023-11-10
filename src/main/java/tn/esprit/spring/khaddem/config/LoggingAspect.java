@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingAspect {
 
-
+/*
     @Before("execution(* tn.esprit.spring.khaddem.services.*.*(..))")
     public void logMethodEntry(JoinPoint joinPoint) {
         String name = joinPoint.getSignature().getName();
@@ -53,5 +53,5 @@ public class LoggingAspect {
         String name = joinPoint.getSignature().getName();
         log.info("Out of method : " + name );
     }
-
+*/
 }
