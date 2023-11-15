@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -24,5 +24,14 @@ public class Departement implements Serializable {
     /*@OneToMany(mappedBy = "departement")
     @JsonIgnore
     private List<Etudiant> etudiants;*/
+    public Departement(Integer idDepartement, String nomDepart) {
+        super();
+        this.idDepartement = idDepartement;
+        this.nomDepart = nomDepart;
+    }
 
+    @ManyToOne
+    @JoinColumn(name = "universite_id")
+    @JsonIgnore
+    private Universite universite;
 }
