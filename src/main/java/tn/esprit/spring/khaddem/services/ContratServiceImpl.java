@@ -7,7 +7,6 @@ import tn.esprit.spring.khaddem.entities.Contrat;
 import tn.esprit.spring.khaddem.entities.Specialite;
 import tn.esprit.spring.khaddem.repositories.ContratRepository;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 

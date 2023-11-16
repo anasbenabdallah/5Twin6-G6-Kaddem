@@ -7,6 +7,7 @@ import tn.esprit.spring.khaddem.entities.*;
 import tn.esprit.spring.khaddem.repositories.EtudiantRepository;
 
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +33,19 @@ public class EtudiantServiceImpl implements IEtudiantService{
     }
 
     @Override
-    public Etudiant updateEtudiant(Etudiant e) {
-        etudiantRepository.save(e);
-        return e;
+    public Etudiant updateEtudiant(Etudiant updatedEtudiant) {
+        Optional<Etudiant> existingEtudiantOptional = etudiantRepository.findById(updatedEtudiant.getIdEtudiant());
+
+        if (existingEtudiantOptional.isPresent()) {
+            Etudiant existingEtudiant = existingEtudiantOptional.get();
+            existingEtudiant.setNomE(updatedEtudiant.getNomE());
+            // Update other fields as needed
+
+            etudiantRepository.save(existingEtudiant);
+            return existingEtudiant;
+        } else {
+            throw new EntityNotFoundException("Etudiant not found with ID: " + updatedEtudiant.getIdEtudiant());
+        }
     }
 
     @Override

@@ -33,15 +33,16 @@ public class EquipeRestController {
     @PostMapping("/add-equipe")
     @ResponseBody
     public Equipe addEquipe(@RequestBody EquipeDTO equipeDTO) {
-        Equipe equipe = new Equipe();
+        var equipe = new Equipe();
         convertDTOToEquipe(equipeDTO, equipe);
         return equipeService.addEquipe(equipe);
     }
 
+
     @PutMapping("/update-equipe")
     @ResponseBody
     public Equipe updateEtudiant(@RequestBody EquipeDTO equipeDTO) {
-        Equipe equipe = new Equipe();
+        var equipe = new Equipe();
         convertDTOToEquipe(equipeDTO, equipe);
         return equipeService.updateEquipe(equipe);
     }

@@ -1,7 +1,9 @@
 package tn.esprit.spring.khaddem.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.spring.khaddem.entities.Departement;
 import tn.esprit.spring.khaddem.repositories.DepartementRepository;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
@@ -14,14 +16,11 @@ import java.util.Optional;
 public class DepartementServiceImpl implements IDepartementService {
 
     private final DepartementRepository departementRepository;
-    private final UniversiteRepository universiteRepository;
 
     @Autowired
     public DepartementServiceImpl(
-            DepartementRepository departementRepository,
-            UniversiteRepository universiteRepository) {
+            DepartementRepository departementRepository) {
         this.departementRepository = departementRepository;
-        this.universiteRepository = universiteRepository;
     }
     @Override
     public List<Departement> retrieveAllDepartements() {
@@ -35,9 +34,19 @@ public class DepartementServiceImpl implements IDepartementService {
     }
 
     @Override
-    public Departement updateDepartement(Departement d) {
-        saveDepartement(d);
-        return d;
+    public Departement updateDepartement(Departement updatedDepartement) {
+        Optional<Departement> existingDepartementOptional = departementRepository.findById(updatedDepartement.getIdDepartement());
+
+        if (existingDepartementOptional.isPresent()) {
+            Departement existingDepartement = existingDepartementOptional.get();
+            existingDepartement.setNomDepart(updatedDepartement.getNomDepart());
+
+            saveDepartement(existingDepartement);
+
+            return existingDepartement;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found with ID: " + updatedDepartement.getIdDepartement());
+        }
     }
 
     private void saveDepartement(Departement d) {

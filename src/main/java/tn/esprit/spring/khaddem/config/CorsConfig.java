@@ -11,8 +11,8 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
+        var source = new UrlBasedCorsConfigurationSource();
+        var config = new CorsConfiguration();
 
         // Allow requests from the specific origin (your React app)
         config.addAllowedOrigin("*");
