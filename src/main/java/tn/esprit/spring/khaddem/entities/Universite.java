@@ -21,6 +21,7 @@ public class Universite implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUniversite;
     private String nomUniv;
+    private String descUniv;
    // @OneToMany(cascade = CascadeType.ALL)
   //  @JsonIgnore
     //private List<Departement>departements;
