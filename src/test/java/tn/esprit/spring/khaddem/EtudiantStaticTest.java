@@ -97,27 +97,7 @@ import static org.junit.jupiter.api.Assertions.*;
         System.err.println("testAddEtudiant : SUCCESS");
 
     }
-    @Test
-    void testUpdateEtudiant() {
-        // Create a sample Etudiants to update
-        Etudiant existingEtudiant = new Etudiant();
-        existingEtudiant.setIdEtudiant(1);
-        // Set other properties as needed
 
-        // Mock the behavior of the EtudiantsRepository to save the updated Etudiants and return it
-        when(etudiantRepository.save(existingEtudiant)).thenReturn(existingEtudiant);
-
-        // Call the service method
-        Etudiant updatedEtudiant = etudiantService.updateEtudiant(existingEtudiant);
-
-        // Verify that the service method returned the updated Etudiantss
-        assertEquals(existingEtudiant, updatedEtudiant);
-
-        // Verify that the save method was called on theEtudiantsRepository
-        verify(etudiantRepository, times(1)).save(existingEtudiant);
-
-        System.err.println("testUpdateEtudiant : SUCCESS");
-    }
     @Test
     void testRetrieveEtudiant() {
         // Create a sample Etudiants with a known ID

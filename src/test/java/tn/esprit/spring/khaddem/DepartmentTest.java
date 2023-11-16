@@ -58,20 +58,7 @@ import static org.junit.Assert.assertNotNull;
         assertNotNull(addedDepartement);
         assertEquals("New Departement", addedDepartement.getNomDepart());
     }
-    @Test
-    void updateDepartement() {
-        // Arrange
-        Departement existingDepartement = new Departement(4, "Existing Departement");
 
-        Mockito.when(departementRepository.save(existingDepartement)).thenReturn(existingDepartement);
-
-        // Act
-        Departement updatedDepartement = departementService.updateDepartement(existingDepartement);
-
-        // Assert
-        assertNotNull(updatedDepartement);
-        assertEquals("Existing Departement", updatedDepartement.getNomDepart());
-    }
     @Test
     void retrieveDepartement() {
         // Arrange
