@@ -6,8 +6,8 @@ import tn.esprit.spring.khaddem.entities.Etudiant;
 import tn.esprit.spring.khaddem.services.IEtudiantService;
 
 import java.util.List;
-
 @RestController
+@CrossOrigin
 @RequestMapping("/etudiant")
 
 public class EtudiantRestController {
