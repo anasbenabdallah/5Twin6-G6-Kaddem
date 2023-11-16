@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class PerformanceAspect {
 
-/*
+
     @Around("execution(* tn.esprit.spring.khaddem.services.*.*(..))")
 
     public void profile(ProceedingJoinPoint pjp) throws Throwable {
@@ -22,5 +22,5 @@ public class PerformanceAspect {
         long elapsedTime = System.currentTimeMillis() - start;
         log.info("Method execution time: " + elapsedTime + " milliseconds.");
     }
-*/
+
 }

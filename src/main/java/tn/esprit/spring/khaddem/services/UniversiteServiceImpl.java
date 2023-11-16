@@ -3,19 +3,24 @@ package tn.esprit.spring.khaddem.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import tn.esprit.spring.khaddem.entities.Departement;
 import tn.esprit.spring.khaddem.entities.Universite;
 import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Slf4j
-public class UniversiteServiceImpl implements  IUniversiteService{
+public class UniversiteServiceImpl implements IUniversiteService {
+
+    private final UniversiteRepository universiteRepository;
+
     @Autowired
-    UniversiteRepository universiteRepository;
-    // @Autowired
-    // DepartementRepository departementRepository;
+    public UniversiteServiceImpl(UniversiteRepository universiteRepository) {
+        this.universiteRepository = universiteRepository;
+    }
+
     @Override
     public List<Universite> retrieveAllUniversites() {
         return universiteRepository.findAll();
@@ -36,16 +41,19 @@ public class UniversiteServiceImpl implements  IUniversiteService{
 
     @Override
     public Universite retrieveUniversite(Integer idUniversite) {
-        return universiteRepository.findById(idUniversite).get();
+        Optional<Universite> universiteOptional = universiteRepository.findById(idUniversite);
+
+        if (universiteOptional.isPresent()) {
+            return universiteOptional.get();
+        } else {
+            // Handle the case when the value is not present, for example, throw an exception or return a default value.
+            // You can throw an exception like NoSuchElementException, or return a default Universite instance.
+            throw new NoSuchElementException("Universite not found for id: " + idUniversite);
+            // Or return a default value
+            // return new Universite(); // Assuming Universite has a no-argument constructor.
+        }
     }
 
-   /* @Transactional
-    public void assignUniversiteToDepartement(Integer universiteId, Integer departementId) {
-        Universite universite =universiteRepository.findById(universiteId).get();
-        Departement departement=departementRepository.findById(departementId).get();
-        universite.getDepartements().add(departement);
-        log.info("departements number "+universite.getDepartements().size());
-    }
 
-    */
+
 }

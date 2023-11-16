@@ -33,20 +33,7 @@ public class Etudiant  implements Serializable {
                 '}';
     }
 
-    /*
-        @Override
-    public String toString() {
-        return "Etudiant{" +
-                "idEtudiant=" + idEtudiant +
-                ", prenomE='" + prenomE + '\'' +
-                ", nomE='" + nomE + '\'' +
-                ", op=" + op +
-                ", departement=" + departement +
-                ", equipes=" + equipes +
-                ", contrats=" + contrats +
-                '}';
-    }
-     */
+
 
     public Etudiant() {
     }
@@ -59,17 +46,6 @@ public class Etudiant  implements Serializable {
 
     }
 
-    /*
-        public Etudiant(Integer idEtudiant, String prenomE, String nomE, Option op, Departement departement, List<Equipe> equipes, List<Contrat> contrats) {
-        this.idEtudiant = idEtudiant;
-        this.prenomE = prenomE;
-        this.nomE = nomE;
-        this.op = op;
-        this.departement = departement;
-        this.equipes = equipes;
-        this.contrats = contrats;
-    }
-     */
 
     public Integer getIdEtudiant() {
         return idEtudiant;

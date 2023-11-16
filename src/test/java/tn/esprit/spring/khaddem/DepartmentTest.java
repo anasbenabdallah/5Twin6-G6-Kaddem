@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class DepartmentTest {
+ class DepartmentTest {
     @InjectMocks
     private DepartementServiceImpl departementService;
 

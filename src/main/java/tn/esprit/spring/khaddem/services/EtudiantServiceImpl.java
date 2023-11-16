@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.khaddem.entities.*;
 import tn.esprit.spring.khaddem.repositories.EtudiantRepository;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -17,13 +17,9 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     EtudiantRepository etudiantRepository;
 
-    /*DepartementRepository departementRepository;
 
-    ContratRepository contratRepository;
 
-    EquipeRepository equipeRepository;
 
-     */
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
         return etudiantRepository.findAll();
@@ -43,69 +39,22 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
     @Override
     public Etudiant retrieveEtudiant(Integer idEtudiant) {
-        return etudiantRepository.findById(idEtudiant).get();
+        Optional<Etudiant> optionalEtudiant = etudiantRepository.findById(idEtudiant);
+        if (optionalEtudiant.isPresent()) {
+            return optionalEtudiant.get();
+        } else {
+            // Handle the case when the optional is empty, e.g., return null or throw an exception.
+            // You might want to consider throwing EntityNotFoundException or a custom exception.
+            return null;
+        }
     }
+
 
     @Override
     public void removeEtudiant(Integer idEtudiant) {
         etudiantRepository.deleteById(idEtudiant);
     }
 
-    /*  @Override
-    public void assignEtudiantToDepartement(Integer etudiantId, Integer departementId) {
-        Etudiant e = etudiantRepository.findById(etudiantId).get();
-        Departement d= departementRepository.findById(departementId).get();
-        e.setDepartement(d);
-        etudiantRepository.save(e);
-    }
-
-    @Override
-    public List<Etudiant> findByDepartementIdDepartement(Integer idDepartement) {
-        return etudiantRepository.findByDepartementIdDepartement(idDepartement);
-    }
-
-    @Override
-    public List<Etudiant> findByEquipesNiveau(Niveau niveau) {
-        return etudiantRepository.findByEquipesNiveau(niveau);
-    }
-
-    @Override
-    public List<Etudiant> retrieveEtudiantsByContratSpecialite(Specialite specialite) {
-        return etudiantRepository.retrieveEtudiantsByContratSpecialite(specialite);
-    }
-
-    @Override
-    public List<Etudiant> retrieveEtudiantsByContratSpecialiteSQL(String specialite) {
-        return etudiantRepository.retrieveEtudiantsByContratSpecialiteSQL(specialite);
-    }
-
-    @Transactional
-    public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer idEquipe) {
-        Contrat contrat = contratRepository.findById(idContrat).get();
-        Equipe equipe=equipeRepository.findById(idEquipe).get();
-        Etudiant etudiant= etudiantRepository.save(e);
-        log.info("contrat: "+contrat.getSpecialite());
-        log.info("equipe: "+equipe.getNomEquipe());
-        log.info("etudiant: "+etudiant.getNomE()+" "+etudiant.getPrenomE()+" "+etudiant.getOp());
-        List<Equipe> equipesMisesAjour = new ArrayList<>();
-        contrat.setEtudiant(etudiant);
-        if(etudiant.getEquipes()!=null) {
-            equipesMisesAjour=etudiant.getEquipes();
-        }
-        equipesMisesAjour.add(equipe);
-        log.info("taille apres ajout : "+equipesMisesAjour.size());
-        etudiant.setEquipes(equipesMisesAjour);
-
-
-        return e;
-    }
-
-    @Override
-    public List<Etudiant> getEtudiantsByDepartement(Integer idDepartement) {
-        Departement departement=departementRepository.findById(idDepartement).get();
-        return departement.getEtudiants();
-    }
-     */
 
 
 }

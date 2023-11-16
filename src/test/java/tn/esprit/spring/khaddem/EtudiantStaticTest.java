@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-public class EtudiantStaticTest {
+ class EtudiantStaticTest {
 
     @InjectMocks
     private EtudiantServiceImpl etudiantService;

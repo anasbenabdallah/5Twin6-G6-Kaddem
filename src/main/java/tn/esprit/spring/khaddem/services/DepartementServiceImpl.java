@@ -4,15 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.khaddem.entities.Departement;
 import tn.esprit.spring.khaddem.repositories.DepartementRepository;
+import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
-public class DepartementServiceImpl implements IDepartementService{
+public class DepartementServiceImpl implements IDepartementService {
+
+    private final DepartementRepository departementRepository;
+    private final UniversiteRepository universiteRepository;
+
     @Autowired
-    DepartementRepository departementRepository;
-    // @Autowired
-    //UniversiteRepository universiteRepository;
+    public DepartementServiceImpl(
+            DepartementRepository departementRepository,
+            UniversiteRepository universiteRepository) {
+        this.departementRepository = departementRepository;
+        this.universiteRepository = universiteRepository;
+    }
     @Override
     public List<Departement> retrieveAllDepartements() {
         return departementRepository.findAll();
@@ -20,24 +30,28 @@ public class DepartementServiceImpl implements IDepartementService{
 
     @Override
     public Departement addDepartement(Departement d) {
-        departementRepository.save(d);
+        saveDepartement(d);
         return d;
     }
 
     @Override
     public Departement updateDepartement(Departement d) {
-        departementRepository.save(d);
+        saveDepartement(d);
         return d;
+    }
+
+    private void saveDepartement(Departement d) {
+        departementRepository.save(d);
     }
 
     @Override
     public Departement retrieveDepartement(Integer idDepart) {
-        return departementRepository.findById(idDepart).get();
+        Optional<Departement> optionalDepartement = departementRepository.findById(idDepart);
+
+        return optionalDepartement.orElse(null);
     }
 
-   /* @Override
-    public List<Departement> retrieveDepartementsByUniversite(Integer idUniversite) {
-        Universite universite = universiteRepository.findById(idUniversite).get();
-        return universite.getDepartements();
-    }*/
+
+
+
 }
