@@ -28,7 +28,7 @@ import java.util.*;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
-class EquipeServiceTest {
+class EquipeServiceImplTest {
     @Mock
     EquipeRepository equipeRepository;
     @Mock

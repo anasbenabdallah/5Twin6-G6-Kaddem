@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/equipe")
+@CrossOrigin(origins = "http://localhost:4200" , allowedHeaders = "*")
 public class EquipeRestController {
     IEquipeService equipeService;
     @GetMapping("/retrieve-all-equipes")
