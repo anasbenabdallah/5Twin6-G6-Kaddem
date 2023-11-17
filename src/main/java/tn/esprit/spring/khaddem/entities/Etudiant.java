@@ -24,7 +24,7 @@ public class Etudiant  implements Serializable {
     private  Option op;
 
 
-
+/*
 
     @Override
     public String toString() {
@@ -36,7 +36,7 @@ public class Etudiant  implements Serializable {
                 '}';
     }
 
-    /*
+
         @Override
     public String toString() {
         return "Etudiant{" +
@@ -62,7 +62,7 @@ public class Etudiant  implements Serializable {
 
     }
 
-    /*
+
         public Etudiant(Integer idEtudiant, String prenomE, String nomE, Option op, Departement departement, List<Equipe> equipes, List<Contrat> contrats) {
         this.idEtudiant = idEtudiant;
         this.prenomE = prenomE;
@@ -72,7 +72,7 @@ public class Etudiant  implements Serializable {
         this.equipes = equipes;
         this.contrats = contrats;
     }
-     */
+
 
     public Integer getIdEtudiant() {
         return idEtudiant;
@@ -106,23 +106,23 @@ public class Etudiant  implements Serializable {
         this.op = op;
     }
 
-    /*public Departement getDepartement() {
+    public Departement getDepartement() {
         return departement;
     }
-     */
 
-   /* public void setDepartement(Departement departement) {
+
+    public void setDepartement(Departement departement) {
         this.departement = departement;
     }
-*/
-  /*  public List<Equipe> getEquipes() {
+
+    public List<Equipe> getEquipes() {
         return equipes;
     }
-*/
-  /*  public void setEquipes(List<Equipe> equipes) {
+
+   public void setEquipes(List<Equipe> equipes) {
         this.equipes = equipes;
     }
-*/
+
     public List<Contrat> getContrats() {
         return contrats;
     }
@@ -130,14 +130,14 @@ public class Etudiant  implements Serializable {
     public void setContrats(List<Contrat> contrats) {
         this.contrats = contrats;
     }
-/*
+
             @ManyToOne
             @JsonIgnore
             private Departement departement;
     @ManyToMany
     @JsonIgnore
     private List<Equipe> equipes;
-    */
+
     @OneToMany(mappedBy = "etudiant")
     @JsonIgnore
     private List<Contrat> contrats;
