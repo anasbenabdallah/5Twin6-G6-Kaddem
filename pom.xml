@@ -8,6 +8,7 @@
         <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>tn.esprit.spring</groupId>
     <artifactId>khaddem</artifactId>
     <version>4.0</version>
@@ -77,7 +78,15 @@
             <version>1.6.9</version>
         </dependency>
 
+
     </dependencies>
+    <!-- Deploy to Nexus -->
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <url>http://192.168.33.10:8081//repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
