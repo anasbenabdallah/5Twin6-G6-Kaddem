@@ -9,6 +9,7 @@ import tn.esprit.spring.khaddem.repositories.ContratRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -35,8 +36,16 @@ public class ContratServiceImpl implements  IContratService{
     @Override
     public Contrat retrieveContrat(Integer idContrat) {
         log.info("debut methode retrieveContrat");
-        return contratRepository.findById(idContrat).get();
+
+        Optional<Contrat> contratOptional = contratRepository.findById(idContrat);
+
+        if (contratOptional.isPresent()) {
+            return contratOptional.get();
+        } else {
+            return null;
+        }
     }
+
 
     @Override
     public void removeContrat(Integer idContrat) {

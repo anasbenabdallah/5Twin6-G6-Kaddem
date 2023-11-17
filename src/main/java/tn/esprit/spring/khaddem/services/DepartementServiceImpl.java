@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.spring.khaddem.entities.Departement;
 import tn.esprit.spring.khaddem.repositories.DepartementRepository;
-import tn.esprit.spring.khaddem.repositories.UniversiteRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public class DepartementServiceImpl implements IDepartementService {
         Optional<Departement> existingDepartementOptional = departementRepository.findById(updatedDepartement.getIdDepartement());
 
         if (existingDepartementOptional.isPresent()) {
-            Departement existingDepartement = existingDepartementOptional.get();
+            var existingDepartement = existingDepartementOptional.get();
             existingDepartement.setNomDepart(updatedDepartement.getNomDepart());
 
             saveDepartement(existingDepartement);

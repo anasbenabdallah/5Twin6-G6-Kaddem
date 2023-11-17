@@ -37,7 +37,7 @@ public class EtudiantServiceImpl implements IEtudiantService{
         Optional<Etudiant> existingEtudiantOptional = etudiantRepository.findById(updatedEtudiant.getIdEtudiant());
 
         if (existingEtudiantOptional.isPresent()) {
-            Etudiant existingEtudiant = existingEtudiantOptional.get();
+            var existingEtudiant = existingEtudiantOptional.get();
             existingEtudiant.setNomE(updatedEtudiant.getNomE());
             // Update other fields as needed
 
