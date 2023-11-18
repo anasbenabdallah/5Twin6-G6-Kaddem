@@ -19,15 +19,7 @@ services:
     restart: unless-stopped
     ports:
       - 8082:8082
-    environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url":"jdbc:mysql://mysqldb:3306/khaddemApp?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true",
-        "spring.datasource.username" : "root",
-        "spring.datasource.password" :  "",
-        "spring.jpa.show-sql" : "true",
-        "spring.jpa.hibernate.ddl-auto" : "update",
-        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect"
-       }'
+
     volumes:
       - .m2:/root/.m2
     stdin_open: true
